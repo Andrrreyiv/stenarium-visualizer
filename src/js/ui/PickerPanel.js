@@ -1,6 +1,10 @@
 // Меню выбора: строка серий, под ней сетка панелей. Полка стоит на месте и никуда
 // не прыгает, в отличие от эталона, где карточка позиционируется вручную рядом с точкой.
 
+// Плитки проявляются волной. Дальше десятой задержку не растим: хвост длинной
+// серии иначе ждал бы своей очереди дольше секунды.
+const WAVE_CAP = 10;
+
 export class PickerPanel {
   constructor(root, catalog, model, opts) {
     this.catalog = catalog;
@@ -54,7 +58,7 @@ export class PickerPanel {
     this.series = id;
     const s = this.catalog.series.find((x) => x.id === id) || this.catalog.series[0];
     this.grid.innerHTML = '';
-    for (const it of s.items) {
+    s.items.forEach((it, i) => {
       const t = el('button', 'viz-tile');
       t.type = 'button';
       t.dataset.code = it.code;
@@ -63,11 +67,12 @@ export class PickerPanel {
       img.decoding = 'async';
       img.src = this.opts.asset(`tex/${it.code}-t.jpg`);
       img.alt = it.label;
+      img.style.setProperty('--i', Math.min(i, WAVE_CAP));
       const cap = el('span', 'viz-cap');
       cap.textContent = it.label;
       t.append(img, cap);
       this.grid.append(t);
-    }
+    });
     this.mark();
   }
 

@@ -1,10 +1,18 @@
 /* Галерейное направление: сцена главная, интерфейс уходит на второй план.
-   Цвет в интерфейсе почти отсутствует, единственный акцент это сами текстуры. */
+   Цвет в интерфейсе почти отсутствует, единственный акцент это сами текстуры.
+
+   Характер движения выбран премиальный: без отскоков и пружин, длинные мягкие
+   торможения. Одна кривая обслуживает почти всё, длительностей ровно три. */
 .viz {
   --bg: #f4f3f1;
   --ink: #1a1a1a;
   --mute: #6f6b66;
   --line: #dedad5;
+  --e: cubic-bezier(.4, 0, .2, 1);
+  --e-out: cubic-bezier(.05, .7, .1, 1);
+  --t-quick: 160ms;
+  --t-base: 320ms;
+  --t-slow: 520ms;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 16px 32px;
@@ -31,15 +39,21 @@
   background: none;
   cursor: pointer;
   overflow: hidden;
+  transition: filter var(--t-base) var(--e);
 }
+/* Выбранная стена чуть светлее соседних: подсказка, где сейчас идёт работа. */
+.viz-scene:not([data-active=""]) .viz-zone:not(.is-active) { filter: brightness(.965) saturate(.97); }
+.viz-zone:hover { filter: brightness(1.02); }
 .viz-fill {
   position: absolute;
   inset: 0;
   background-position: top left;
   background-repeat: repeat;
+  opacity: 0;
   /* Смена текстуры кроссфейдом: мгновенная подмена читается как сбой, долгая раздражает. */
-  transition: background-image 180ms ease-out;
+  transition: opacity var(--t-base) var(--e);
 }
+.viz-fill.is-on { opacity: 1; }
 .viz-zone::after {
   content: '';
   position: absolute;
@@ -71,9 +85,10 @@
   font: inherit;
   font-size: 14px;
   cursor: pointer;
-  transition: border-color 160ms ease-out;
+  transition: border-color var(--t-quick) var(--e), transform var(--t-quick) var(--e);
 }
 .viz-btn:hover:not(:disabled) { border-color: var(--ink); }
+.viz-btn:active:not(:disabled) { transform: scale(.98); }
 .viz-btn:disabled { opacity: .4; cursor: default; }
 
 .viz-zonerow, .viz-series { display: flex; flex-wrap: wrap; gap: 4px; padding: 12px 0 0; }
@@ -87,9 +102,11 @@
   font: inherit;
   font-size: 14px;
   cursor: pointer;
-  transition: color 160ms ease-out, background-color 160ms ease-out;
+  transition: color var(--t-quick) var(--e), background-color var(--t-quick) var(--e),
+    transform var(--t-quick) var(--e);
 }
 .viz-tab:hover { color: var(--ink); }
+.viz-tab:active { transform: scale(.98); }
 .viz-tab.is-on { background: var(--ink); color: #fff; }
 
 .viz-grid {
@@ -105,7 +122,10 @@
   background: none;
   cursor: pointer;
   text-align: left;
+  transition: transform var(--t-quick) var(--e);
 }
+.viz-tile:hover { transform: translateY(-2px); }
+.viz-tile:active { transform: translateY(0) scale(.98); }
 .viz-thumb {
   display: block;
   width: 100%;
@@ -115,6 +135,10 @@
   outline-offset: -2px;
   object-fit: cover;
   transition: outline-color 160ms ease-out;
+  /* Плитки проявляются волной. Задержка держится на переменной от разметки и
+     подрезана десятью шагами, иначе хвост списка ждал бы дольше секунды. */
+  animation: viz-tile-in 260ms var(--e-out) backwards;
+  animation-delay: calc(var(--i, 0) * 22ms);
 }
 .viz-tile:hover .viz-thumb { outline-color: var(--mute); }
 .viz-tile.is-on .viz-thumb { outline-color: var(--ink); }
@@ -132,11 +156,66 @@
 
 .viz-error { padding: 16px; border: 1px solid #c33; color: #c33; }
 
+/* Появление страницы: сначала кадр, следом полоса действий, следом каталог.
+   Порядок читается как «сцена главная, интерфейс обслуживает». Прячем только
+   когда скрипт жив: если он не поднялся, класса is-anim нет и всё видно сразу. */
+.viz.is-anim .viz-scene, .viz.is-anim .viz-bar, .viz.is-anim .viz-picker { opacity: 0; }
+/* Видимость возвращает КЛАСС, а не заливка анимации. Если движок анимаций
+   промолчит (старый браузер, фоновая вкладка), страница всё равно проявится. */
+.viz.is-ready .viz-scene,
+.viz.is-ready .viz-bar,
+.viz.is-ready .viz-picker { opacity: 1; }
+.viz.is-ready .viz-scene { animation: viz-frame-in var(--t-slow) var(--e-out); }
+.viz.is-ready .viz-bar { animation: viz-rise var(--t-base) var(--e-out) 140ms backwards; }
+.viz.is-ready .viz-picker { animation: viz-rise var(--t-base) var(--e-out) 220ms backwards; }
+
+/* Кадр СОБИРАЕТСЯ внутрь, а не разъезжается наружу: на узком экране он идёт от
+   края до края, и увеличение хотя бы на процент дало бы горизонтальную прокрутку. */
+@keyframes viz-frame-in {
+  from { opacity: 0; transform: scale(.995); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes viz-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes viz-tile-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+/* Фоновый слой: свет в комнате едва заметно дышит, кадр перестаёт быть мёртвой картинкой. */
+@keyframes viz-light {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .95; }
+}
+.viz-shade { animation: viz-light 14s ease-in-out infinite; }
+
 /* Пальцем целятся хуже, чем мышью: увеличиваем цели и плитки. */
 @media (pointer: coarse) {
   .viz-btn, .viz-tab { min-height: 44px; }
   .viz-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
+  .viz-zone:hover { filter: none; }
+  .viz-tile:hover { transform: none; }
 }
+
+/* Узкий экран: кадр во всю ширину и прилипает к верху, пока листают текстуры.
+   Иначе выбор идёт вслепую: стена уезжает вверх на первом же движении пальца. */
+@media (max-width: 640px) {
+  .viz { padding: 0 0 24px; }
+  .viz-bar, .viz-picker { padding-left: 16px; padding-right: 16px; }
+  .viz-scene {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 10px 18px -14px rgba(0, 0, 0, .45);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .viz * { transition: none !important; }
+  .viz *, .viz *::before, .viz *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  /* Анимации выключены, значит проявлять нечем: показываем всё сразу. */
+  .viz.is-anim .viz-scene, .viz.is-anim .viz-bar, .viz.is-anim .viz-picker { opacity: 1; }
 }

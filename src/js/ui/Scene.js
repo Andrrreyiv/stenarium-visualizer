@@ -23,10 +23,13 @@ export class Scene {
       box.dataset.zone = z.id;
       box.setAttribute('aria-label', `${z.title} стена`);
       place(box, z.rect);
-      const fill = el('span', 'viz-fill');
-      box.append(fill);
+      // Два слоя заливки на зону: картинку фона браузер плавно менять не умеет,
+      // поэтому кроссфейд собран на прозрачности двух одинаковых слоёв.
+      const back = el('span', 'viz-fill');
+      const front = el('span', 'viz-fill');
+      box.append(back, front);
       root.append(box);
-      this.tiles[z.id] = fill;
+      this.tiles[z.id] = { front, back, code: null };
     }
 
     const shade = el('img', 'viz-shade');
@@ -52,16 +55,25 @@ export class Scene {
       const code = this.model.get(z.id);
       const item = this.opts.item(code);
       if (!item) continue;
+      const pair = this.tiles[z.id];
+      // Тот же артикул второй раз не перекрашиваем: лишний кроссфейд читается как мигание.
+      if (pair.code === code) continue;
       const across = this.scene.tilesAcross[item.series] || 2;
-      const fill = this.tiles[z.id];
-      fill.style.backgroundImage = `url("${this.opts.asset(`tex/${code}-w.jpg`)}")`;
-      fill.style.backgroundSize = `${100 / across}% auto`;
+      const next = pair.back;
+      next.style.backgroundImage = `url("${this.opts.asset(`tex/${code}-w.jpg`)}")`;
+      next.style.backgroundSize = `${100 / across}% auto`;
+      next.classList.add('is-on');
+      pair.front.classList.remove('is-on');
+      pair.back = pair.front;
+      pair.front = next;
+      pair.code = code;
     }
     this.root.dataset.active = this.active || '';
   }
 
   setActive(zone) {
     this.active = zone;
+    this.root.dataset.active = zone || '';
     this.root.querySelectorAll('.viz-zone').forEach((b) => {
       b.classList.toggle('is-active', b.dataset.zone === zone);
     });

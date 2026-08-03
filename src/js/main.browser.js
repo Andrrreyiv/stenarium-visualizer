@@ -1,13 +1,19 @@
 // Точка входа: грузим конфиги, собираем модель, поднимаем сцену и меню.
-import { validateCatalog, findItem } from './core/CatalogLoader.js?v=20260803a';
-import { SceneModel } from './core/SceneModel.js?v=20260803a';
-import { encodeState, decodeState } from './core/ShareState.js?v=20260803a';
-import { Scene } from './ui/Scene.js?v=20260803a';
-import { PickerPanel } from './ui/PickerPanel.js?v=20260803a';
-import { saveImage } from './ui/SaveImage.js?v=20260803a';
+import { validateCatalog, findItem } from './core/CatalogLoader.js?v=20260803b';
+import { SceneModel } from './core/SceneModel.js?v=20260803b';
+import { encodeState, decodeState } from './core/ShareState.js?v=20260803b';
+import { Scene } from './ui/Scene.js?v=20260803b';
+import { PickerPanel } from './ui/PickerPanel.js?v=20260803b';
+import { saveImage } from './ui/SaveImage.js?v=20260803b';
 
-const V = '20260803a';
+const V = '20260803b';
 const asset = (p) => `assets/${p}?v=${V}`;
+const shell = document.querySelector('.viz');
+
+// Прятать содержимое имеет право только живой скрипт: иначе упавший модуль
+// оставил бы пустую страницу вместо хотя бы статичной сцены.
+shell.classList.add('is-anim');
+const reveal = () => shell.classList.add('is-ready');
 
 async function json(path) {
   const r = await fetch(`${path}?v=${V}`);
@@ -84,10 +90,12 @@ async function boot() {
   view.setActive(model.zones[0]);
   picker.setZone(model.zones[0]);
   document.getElementById('viz-reset').disabled = model.isDefault();
+  reveal();
   track('viz_open', {});
 }
 
 boot().catch((err) => {
   document.getElementById('viz-error').textContent = `Не удалось загрузить визуализатор: ${err.message}`;
   document.getElementById('viz-error').hidden = false;
+  reveal();
 });

@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Визуализатор стеновых панелей — СТЕНАРИУМ</title>
-  <link rel="stylesheet" href="src/css/viz.css?v=20260803a" />
+  <!-- Страница-витрина: на боевом сайте виджет живёт внутри блока Тильды,
+       поэтому сброс полей тела страницы держим здесь, а не в стилях виджета. -->
+  <style>body { margin: 0; background: #f4f3f1; }</style>
+  <link rel="stylesheet" href="src/css/viz.css?v=20260803b" />
 </head>
 <body>
   <div class="viz">
@@ -19,9 +22,9 @@
       <button id="viz-reset" class="viz-btn" type="button">Сбросить</button>
     </div>
 
-    <div id="viz-picker"></div>
+    <div id="viz-picker" class="viz-picker"></div>
   </div>
 
-  <script type="module" src="src/js/main.browser.js?v=20260803a"></script>
+  <script type="module" src="src/js/main.browser.js?v=20260803b"></script>
 </body>
 </html>
