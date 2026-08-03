@@ -1,0 +1,142 @@
+/* Галерейное направление: сцена главная, интерфейс уходит на второй план.
+   Цвет в интерфейсе почти отсутствует, единственный акцент это сами текстуры. */
+.viz {
+  --bg: #f4f3f1;
+  --ink: #1a1a1a;
+  --mute: #6f6b66;
+  --line: #dedad5;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
+  color: var(--ink);
+  font: 400 15px/1.5 inherit;
+  background: var(--bg);
+}
+.viz *, .viz *::before, .viz *::after { box-sizing: border-box; }
+
+.viz-scene {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+.viz-bg, .viz-shade, .viz-fg { position: absolute; display: block; pointer-events: none; }
+.viz-bg { inset: 0; width: 100%; height: 100%; }
+.viz-shade { inset: 0; width: 100%; height: 100%; }
+
+.viz-zone {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+.viz-fill {
+  position: absolute;
+  inset: 0;
+  background-position: top left;
+  background-repeat: repeat;
+  /* Смена текстуры кроссфейдом: мгновенная подмена читается как сбой, долгая раздражает. */
+  transition: background-image 180ms ease-out;
+}
+.viz-zone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition: outline-color 160ms ease-out;
+}
+.viz-zone:hover::after { outline-color: rgba(255, 255, 255, .45); }
+.viz-zone.is-active::after { outline-color: rgba(255, 255, 255, .85); }
+.viz-zone:focus-visible { outline: 3px solid #1a1a1a; outline-offset: 2px; }
+
+.viz-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 0 10px;
+  border-bottom: 1px solid var(--line);
+}
+.viz-note { flex: 1 1 260px; color: var(--mute); font-size: 13px; }
+
+.viz-btn {
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 160ms ease-out;
+}
+.viz-btn:hover:not(:disabled) { border-color: var(--ink); }
+.viz-btn:disabled { opacity: .4; cursor: default; }
+
+.viz-zonerow, .viz-series { display: flex; flex-wrap: wrap; gap: 4px; padding: 12px 0 0; }
+.viz-series { border-top: 1px solid var(--line); margin-top: 10px; }
+.viz-tab {
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: var(--mute);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 160ms ease-out, background-color 160ms ease-out;
+}
+.viz-tab:hover { color: var(--ink); }
+.viz-tab.is-on { background: var(--ink); color: #fff; }
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 10px;
+  padding: 14px 0 0;
+}
+.viz-tile {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+.viz-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 2px;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  object-fit: cover;
+  transition: outline-color 160ms ease-out;
+}
+.viz-tile:hover .viz-thumb { outline-color: var(--mute); }
+.viz-tile.is-on .viz-thumb { outline-color: var(--ink); }
+.viz-cap {
+  display: block;
+  padding-top: 5px;
+  overflow: hidden;
+  color: var(--mute);
+  font-size: 11px;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.viz-tile.is-on .viz-cap { color: var(--ink); }
+
+.viz-error { padding: 16px; border: 1px solid #c33; color: #c33; }
+
+/* Пальцем целятся хуже, чем мышью: увеличиваем цели и плитки. */
+@media (pointer: coarse) {
+  .viz-btn, .viz-tab { min-height: 44px; }
+  .viz-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .viz * { transition: none !important; }
+}

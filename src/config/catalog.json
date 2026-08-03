@@ -1,0 +1,355 @@
+{
+  "series": [
+    {
+      "id": "wood",
+      "title": "Дерево",
+      "items": [
+        {
+          "code": "YB-3031C",
+          "label": "YB-3031C",
+          "url": ""
+        },
+        {
+          "code": "YB-3038C",
+          "label": "YB-3038C",
+          "url": ""
+        },
+        {
+          "code": "YB-4004C",
+          "label": "YB-4004C",
+          "url": ""
+        },
+        {
+          "code": "YB-4052D",
+          "label": "YB-4052D",
+          "url": ""
+        },
+        {
+          "code": "YB-4060D",
+          "label": "YB-4060D",
+          "url": ""
+        },
+        {
+          "code": "YB-4066D",
+          "label": "YB-4066D",
+          "url": ""
+        },
+        {
+          "code": "YB-4073D",
+          "label": "YB-4073D",
+          "url": ""
+        },
+        {
+          "code": "YB-4088D",
+          "label": "YB-4088D",
+          "url": ""
+        },
+        {
+          "code": "YB-9008E",
+          "label": "YB-9008E",
+          "url": ""
+        },
+        {
+          "code": "YB-9012E",
+          "label": "YB-9012E",
+          "url": ""
+        },
+        {
+          "code": "YB-9016E",
+          "label": "YB-9016E",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "stone",
+      "title": "Камень",
+      "items": [
+        {
+          "code": "DXA2311-2",
+          "label": "DXA2311-2",
+          "url": ""
+        },
+        {
+          "code": "DXC006",
+          "label": "DXC006",
+          "url": ""
+        },
+        {
+          "code": "DXC008-2",
+          "label": "DXC008-2",
+          "url": ""
+        },
+        {
+          "code": "DXC010-2",
+          "label": "DXC010-2",
+          "url": ""
+        },
+        {
+          "code": "DXC010-3",
+          "label": "DXC010-3",
+          "url": ""
+        },
+        {
+          "code": "DXC010-5",
+          "label": "DXC010-5",
+          "url": ""
+        },
+        {
+          "code": "DXC011-1",
+          "label": "DXC011-1",
+          "url": ""
+        },
+        {
+          "code": "DXC011-3",
+          "label": "DXC011-3",
+          "url": ""
+        },
+        {
+          "code": "DXC013-2",
+          "label": "DXC013-2",
+          "url": ""
+        },
+        {
+          "code": "DXC013-3",
+          "label": "DXC013-3",
+          "url": ""
+        },
+        {
+          "code": "DXC017-3",
+          "label": "DXC017-3",
+          "url": ""
+        },
+        {
+          "code": "DXCF017-5",
+          "label": "DXCF017-5",
+          "url": ""
+        },
+        {
+          "code": "DXCF017-6",
+          "label": "DXCF017-6",
+          "url": ""
+        },
+        {
+          "code": "PM5007G",
+          "label": "PM5007G",
+          "url": ""
+        },
+        {
+          "code": "YB-3025C",
+          "label": "YB-3025C",
+          "url": ""
+        },
+        {
+          "code": "YB-4019D",
+          "label": "YB-4019D",
+          "url": ""
+        },
+        {
+          "code": "YB-4037D",
+          "label": "YB-4037D",
+          "url": ""
+        },
+        {
+          "code": "YB-4040D",
+          "label": "YB-4040D",
+          "url": ""
+        },
+        {
+          "code": "YB-4041D",
+          "label": "YB-4041D",
+          "url": ""
+        },
+        {
+          "code": "YB-4043D",
+          "label": "YB-4043D",
+          "url": ""
+        },
+        {
+          "code": "YB-4044D",
+          "label": "YB-4044D",
+          "url": ""
+        },
+        {
+          "code": "YB-4046D",
+          "label": "YB-4046D",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "marble",
+      "title": "Гибкий мрамор",
+      "items": [
+        {
+          "code": "KL-8264-1",
+          "label": "KL 8264-1",
+          "url": ""
+        },
+        {
+          "code": "KL-8264",
+          "label": "KL 8264",
+          "url": ""
+        },
+        {
+          "code": "KL-8288-1",
+          "label": "KL 8288-1",
+          "url": ""
+        },
+        {
+          "code": "KL8088",
+          "label": "KL8088",
+          "url": ""
+        },
+        {
+          "code": "KL8226-3",
+          "label": "KL8226-3",
+          "url": ""
+        },
+        {
+          "code": "KL8231",
+          "label": "KL8231",
+          "url": ""
+        },
+        {
+          "code": "KL8249",
+          "label": "KL8249",
+          "url": ""
+        },
+        {
+          "code": "KL8266",
+          "label": "KL8266",
+          "url": ""
+        },
+        {
+          "code": "KL8270",
+          "label": "KL8270",
+          "url": ""
+        },
+        {
+          "code": "KL8273",
+          "label": "KL8273",
+          "url": ""
+        },
+        {
+          "code": "KL8277",
+          "label": "KL8277",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mono",
+      "title": "Mono",
+      "items": [
+        {
+          "code": "YB-3058C",
+          "label": "YB-3058C",
+          "url": ""
+        },
+        {
+          "code": "YB-4006D",
+          "label": "YB-4006D",
+          "url": ""
+        },
+        {
+          "code": "YB-4012D",
+          "label": "YB-4012D",
+          "url": ""
+        },
+        {
+          "code": "YB-4021D",
+          "label": "YB-4021D",
+          "url": ""
+        },
+        {
+          "code": "YDF-028",
+          "label": "YDF-028",
+          "url": ""
+        },
+        {
+          "code": "Идеальный-серый",
+          "label": "Идеальный серый",
+          "url": ""
+        },
+        {
+          "code": "Облочно-розовый",
+          "label": "Облочно-розовый",
+          "url": ""
+        },
+        {
+          "code": "Пряная-гвоздика",
+          "label": "Пряная гвоздика",
+          "url": ""
+        },
+        {
+          "code": "Пыльный-индиго",
+          "label": "Пыльный индиго",
+          "url": ""
+        },
+        {
+          "code": "Серебристый-эвкалипт",
+          "label": "Серебристый эвкалипт",
+          "url": ""
+        },
+        {
+          "code": "Табачный-хаки",
+          "label": "Табачный хаки",
+          "url": ""
+        },
+        {
+          "code": "Тенистая-зелень",
+          "label": "Тенистая зелень",
+          "url": ""
+        },
+        {
+          "code": "Терракот",
+          "label": "Терракот",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "metal",
+      "title": "Металл",
+      "items": [
+        {
+          "code": "YB-2040B",
+          "label": "YB-2040B",
+          "url": ""
+        },
+        {
+          "code": "YB-2046B",
+          "label": "YB-2046B",
+          "url": ""
+        },
+        {
+          "code": "YB-2051B",
+          "label": "YB-2051B",
+          "url": ""
+        },
+        {
+          "code": "YV-2047B",
+          "label": "YV-2047B",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "fabric",
+      "title": "Ткань",
+      "items": [
+        {
+          "code": "YB-2025B",
+          "label": "YB-2025B",
+          "url": ""
+        },
+        {
+          "code": "YB-2027B",
+          "label": "YB-2027B",
+          "url": ""
+        }
+      ]
+    }
+  ]
+}

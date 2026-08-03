@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Визуализатор стеновых панелей — СТЕНАРИУМ</title>
+  <link rel="stylesheet" href="src/css/viz.css?v=20260803a" />
+</head>
+<body>
+  <div class="viz">
+    <p id="viz-error" class="viz-error" hidden></p>
+
+    <div id="viz-scene" class="viz-scene" aria-label="Интерьер с панелями"></div>
+
+    <div class="viz-bar">
+      <span id="viz-note" class="viz-note"></span>
+      <a id="viz-product" class="viz-btn" hidden target="_blank" rel="noopener">Смотреть в каталоге</a>
+      <button id="viz-save" class="viz-btn" type="button">Сохранить картинку</button>
+      <button id="viz-reset" class="viz-btn" type="button">Сбросить</button>
+    </div>
+
+    <div id="viz-picker"></div>
+  </div>
+
+  <script type="module" src="src/js/main.browser.js?v=20260803a"></script>
+</body>
+</html>
