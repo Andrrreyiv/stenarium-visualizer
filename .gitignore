@@ -1,2 +1,4 @@
 assets/_raw/
 node_modules/
+__pycache__/
+*.pyc
