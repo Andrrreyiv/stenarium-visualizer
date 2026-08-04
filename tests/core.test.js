@@ -7,8 +7,15 @@ import { encodeState, decodeState } from '../src/js/core/ShareState.js';
 
 const catalog = validateCatalog({
   series: [
-    { id: 'wood', title: 'Дерево', items: [{ code: 'W1', label: 'W1' }, { code: 'W2', label: 'W2', url: 'https://x/1' }] },
-    { id: 'stone', title: 'Камень', items: [{ code: 'S1', label: 'S1' }] },
+    {
+      id: 'wood',
+      title: 'Дерево',
+      items: [
+        { code: 'W1', name: 'Дуб', article: 'W1' },
+        { code: 'W2', name: 'Орех', article: 'W2', url: 'https://x/1' },
+      ],
+    },
+    { id: 'stone', title: 'Камень', items: [{ code: 'S1' }] },
   ],
 });
 const scene = {
@@ -100,4 +107,18 @@ test('сцена: высота зон одинаковая', () => {
     assert.equal(z.rect[1], first.rect[1], `верх зоны ${z.id}`);
     assert.equal(z.rect[3], first.rect[3], `высота зоны ${z.id}`);
   }
+});
+
+// Артикул есть не у всех: часть расцветок в каталоге не заведена и печатается под
+// заказ. Проверка держит границу между «нет артикула» и «потеряли данные».
+test('каталог: позиция без имени и артикула не роняет разбор', () => {
+  const it = findItem(catalog, 'S1');
+  assert.equal(it.article, '');
+  assert.equal(it.name, 'S1');
+});
+
+test('каталог: имя и артикул доходят до карточки раздельно', () => {
+  const it = findItem(catalog, 'W1');
+  assert.equal(it.name, 'Дуб');
+  assert.equal(it.article, 'W1');
 });

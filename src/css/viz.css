@@ -148,7 +148,7 @@
 
 .viz-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
   gap: 10px;
   padding: 14px 0 0;
 }
@@ -179,17 +179,32 @@
 }
 .viz-tile:hover .viz-thumb { outline-color: var(--mute); }
 .viz-tile.is-on .viz-thumb { outline-color: var(--ink); }
-.viz-cap {
+.viz-cap { display: block; padding-top: 6px; }
+/* Имя крупно, артикул под ним мельче: так просил клиент. Имени даём две строки,
+   названия вроде «Дуб Сакраменто» в одну не помещаются на узкой плитке. */
+.viz-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Место под две строки держим всегда: иначе плитки с коротким именем ниже
+     соседних, и нижний край сетки идёт лесенкой. */
+  min-height: 2.5em;
+  color: var(--ink);
+  font-size: 12.5px;
+  line-height: 1.25;
+}
+.viz-art {
   display: block;
-  padding-top: 5px;
+  margin-top: 2px;
   overflow: hidden;
   color: var(--mute);
-  font-size: 11px;
-  line-height: 1.3;
+  font-size: 10.5px;
+  line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.viz-tile.is-on .viz-cap { color: var(--ink); }
+.viz-tile.is-on .viz-art { color: var(--ink); }
 
 .viz-error { padding: 16px; border: 1px solid #c33; color: #c33; }
 
@@ -203,41 +218,7 @@
 .viz.is-ready .viz-bar,
 .viz.is-ready .viz-picker { opacity: 1; }
 .viz.is-ready .viz-scene { animation: viz-frame-in var(--t-slow) var(--e-out); }
-.viz.is-ready /* Метка «плюс» над каждой стеной: показывает, что участок кликабельный.
-   Размер тянется от ширины окна, а не задан в пикселях: кадр масштабируется целиком,
-   и постоянные 44px на телефоне закрыли бы половину стены. */
-.viz-plus {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* Нижний предел 20px: на телефоне кадр всего ~210px высотой, и метка крупнее
-     закрывала бы четверть панели, мешая смотреть сам цвет. */
-  width: clamp(20px, 3.2vw, 44px);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .84);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, .28);
-  opacity: .92;
-  /* Клик обязан достаться самой зоне, метка его не перехватывает. */
-  pointer-events: none;
-  transition: opacity var(--t-base) var(--e), transform var(--t-base) var(--e);
-}
-.viz-plus::before, .viz-plus::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background: var(--ink);
-  transform: translate(-50%, -50%);
-}
-.viz-plus::before { width: 38%; height: 1.5px; }
-.viz-plus::after { width: 1.5px; height: 38%; }
-.viz-zone:hover .viz-plus { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
-/* На выбранной стене метка приглушена: там уже работают, подсказка не нужна. */
-.viz-zone.is-active .viz-plus { opacity: .38; }
-
-.viz-bar { animation: viz-rise var(--t-base) var(--e-out) 140ms backwards; }
+.viz.is-ready .viz-bar { animation: viz-rise var(--t-base) var(--e-out) 140ms backwards; }
 .viz.is-ready .viz-picker { animation: viz-rise var(--t-base) var(--e-out) 220ms backwards; }
 
 /* Кадр СОБИРАЕТСЯ внутрь, а не разъезжается наружу: на узком экране он идёт от
@@ -264,7 +245,7 @@
 /* Пальцем целятся хуже, чем мышью: увеличиваем цели и плитки. */
 @media (pointer: coarse) {
   .viz-btn, .viz-tab { min-height: 44px; }
-  .viz-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
+  .viz-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
   .viz-zone:hover { filter: none; }
   .viz-tile:hover { transform: none; }
 }

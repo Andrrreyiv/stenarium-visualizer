@@ -17,7 +17,16 @@ export function validateCatalog(raw) {
       seen.add(it.code);
       // Ссылка на товар необязательна: каталог на сайте ещё синхронизируют.
       // Пусто означает, что кнопка перехода просто не показывается.
-      return { code: it.code, label: it.label || it.code, url: it.url || '', series: s.id };
+      // Имя и артикул показываются раздельно: имя крупно, артикул под ним мельче.
+      // Артикул есть не у всех: часть расцветок в каталоге не заведена и печатается
+      // под заказ. Пустое поле здесь означает именно это, а не потерю данных.
+      return {
+        code: it.code,
+        name: it.name || it.code,
+        article: it.article || '',
+        url: it.url || '',
+        series: s.id,
+      };
     });
     return { id: s.id, title: s.title, items };
   });

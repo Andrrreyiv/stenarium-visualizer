@@ -5,58 +5,99 @@
       "title": "Дерево",
       "items": [
         {
-          "code": "YB-3031C",
-          "label": "YB-3031C",
-          "url": ""
-        },
-        {
-          "code": "YB-3038C",
-          "label": "YB-3038C",
-          "url": ""
-        },
-        {
-          "code": "YB-4004C",
-          "label": "YB-4004C",
-          "url": ""
-        },
-        {
-          "code": "YB-4052D",
-          "label": "YB-4052D",
-          "url": ""
-        },
-        {
-          "code": "YB-4060D",
-          "label": "YB-4060D",
-          "url": ""
-        },
-        {
-          "code": "YB-4066D",
-          "label": "YB-4066D",
-          "url": ""
-        },
-        {
-          "code": "YB-4073D",
-          "label": "YB-4073D",
-          "url": ""
-        },
-        {
-          "code": "YB-4088D",
-          "label": "YB-4088D",
-          "url": ""
-        },
-        {
-          "code": "YB-9008E",
-          "label": "YB-9008E",
+          "code": "YB-4087D",
+          "name": "Беленый дуб",
+          "article": "YB-4087D",
           "url": ""
         },
         {
           "code": "YB-9012E",
-          "label": "YB-9012E",
+          "name": "Бук Бавария",
+          "article": "YB-9012E",
+          "url": ""
+        },
+        {
+          "code": "BG6001",
+          "name": "Венге",
+          "article": "BG6001",
+          "url": ""
+        },
+        {
+          "code": "YB-3031C",
+          "name": "Дуб",
+          "article": "YB-3031C",
+          "url": ""
+        },
+        {
+          "code": "YB-4066D",
+          "name": "Дуб Карамель",
+          "article": "YB-4066D",
+          "url": ""
+        },
+        {
+          "code": "YB-4073D",
+          "name": "Дуб Молочный",
+          "article": "YB-4073D",
+          "url": ""
+        },
+        {
+          "code": "YB-4060D",
+          "name": "Дуб Сакраменто",
+          "article": "YB-4060D",
+          "url": ""
+        },
+        {
+          "code": "YB-9008E",
+          "name": "Дуб Славония",
+          "article": "YB-9008E",
+          "url": ""
+        },
+        {
+          "code": "BG5011",
+          "name": "Дуб шале",
+          "article": "BG5011",
+          "url": ""
+        },
+        {
+          "code": "YB-8038",
+          "name": "Елочка",
+          "article": "YB-8038",
+          "url": ""
+        },
+        {
+          "code": "YB-3038C",
+          "name": "Орех",
+          "article": "YB-3038C",
+          "url": ""
+        },
+        {
+          "code": "YB-4088D",
+          "name": "Орех Миланский",
+          "article": "YB-4088D",
+          "url": ""
+        },
+        {
+          "code": "BG-6-4",
+          "name": "Серое дерево",
+          "article": "BG-6-4",
           "url": ""
         },
         {
           "code": "YB-9016E",
-          "label": "YB-9016E",
+          "name": "Сосна Карелия",
+          "article": "YB-9016E",
+          "url": ""
+        },
+        {
+          "code": "YB-4004C",
+          "name": "Ясень",
+          "article": "YB-4004C",
+          "url": ""
+        },
+        {
+          "code": "YB-4052D",
+          "name": "Ясень Латте",
+          "article": "YB-4052D",
           "url": ""
         }
       ]
@@ -66,113 +107,129 @@
       "title": "Камень",
       "items": [
         {
-          "code": "DXA2311-2",
-          "label": "DXA2311-2",
+          "code": "DXC010-5",
+          "name": "Бежевый травертин",
+          "article": "DXC010-5",
           "url": ""
         },
         {
           "code": "DXC006",
-          "label": "DXC006",
-          "url": ""
-        },
-        {
-          "code": "DXC008-2",
-          "label": "DXC008-2",
-          "url": ""
-        },
-        {
-          "code": "DXC010-2",
-          "label": "DXC010-2",
-          "url": ""
-        },
-        {
-          "code": "DXC010-3",
-          "label": "DXC010-3",
-          "url": ""
-        },
-        {
-          "code": "DXC010-5",
-          "label": "DXC010-5",
-          "url": ""
-        },
-        {
-          "code": "DXC011-1",
-          "label": "DXC011-1",
-          "url": ""
-        },
-        {
-          "code": "DXC011-3",
-          "label": "DXC011-3",
-          "url": ""
-        },
-        {
-          "code": "DXC013-2",
-          "label": "DXC013-2",
-          "url": ""
-        },
-        {
-          "code": "DXC013-3",
-          "label": "DXC013-3",
-          "url": ""
-        },
-        {
-          "code": "DXC017-3",
-          "label": "DXC017-3",
-          "url": ""
-        },
-        {
-          "code": "DXCF017-5",
-          "label": "DXCF017-5",
+          "name": "Бетонная крошка",
+          "article": "DXC006",
           "url": ""
         },
         {
           "code": "DXCF017-6",
-          "label": "DXCF017-6",
+          "name": "Вулкан",
+          "article": "DXCF017-6",
           "url": ""
         },
         {
-          "code": "PM5007G",
-          "label": "PM5007G",
-          "url": ""
-        },
-        {
-          "code": "YB-3025C",
-          "label": "YB-3025C",
-          "url": ""
-        },
-        {
-          "code": "YB-4019D",
-          "label": "YB-4019D",
-          "url": ""
-        },
-        {
-          "code": "YB-4037D",
-          "label": "YB-4037D",
-          "url": ""
-        },
-        {
-          "code": "YB-4040D",
-          "label": "YB-4040D",
-          "url": ""
-        },
-        {
-          "code": "YB-4041D",
-          "label": "YB-4041D",
-          "url": ""
-        },
-        {
-          "code": "YB-4043D",
-          "label": "YB-4043D",
-          "url": ""
-        },
-        {
-          "code": "YB-4044D",
-          "label": "YB-4044D",
+          "code": "DXC013-2",
+          "name": "Глубокий камень",
+          "article": "DXC013-2",
           "url": ""
         },
         {
           "code": "YB-4046D",
-          "label": "YB-4046D",
+          "name": "Грани гор",
+          "article": "YB-4046D",
+          "url": ""
+        },
+        {
+          "code": "DXC013-3",
+          "name": "Золотистый гранит",
+          "article": "DXC013-3",
+          "url": ""
+        },
+        {
+          "code": "YB-4041D",
+          "name": "Золотистый мрамор",
+          "article": "YB-4041D",
+          "url": ""
+        },
+        {
+          "code": "DXC010-2",
+          "name": "Золотистый оникс",
+          "article": "DXC010-2",
+          "url": ""
+        },
+        {
+          "code": "YB-4044D",
+          "name": "Золотой дым",
+          "article": "YB-4044D",
+          "url": ""
+        },
+        {
+          "code": "PM5007G",
+          "name": "Классический мрамор",
+          "article": "PM5007G",
+          "url": ""
+        },
+        {
+          "code": "DXC008-2",
+          "name": "Коричневый песчаник",
+          "article": "DXC008-2",
+          "url": ""
+        },
+        {
+          "code": "YB-4019D",
+          "name": "Мрамор базальт",
+          "article": "YB-4019D",
+          "url": ""
+        },
+        {
+          "code": "YB-4043D",
+          "name": "Мрамор Севера",
+          "article": "YB-4043D",
+          "url": ""
+        },
+        {
+          "code": "YB-4040D",
+          "name": "Мраморный крем",
+          "article": "YB-4040D",
+          "url": ""
+        },
+        {
+          "code": "DXC011-1",
+          "name": "Мраморный лед",
+          "article": "DXC011-1",
+          "url": ""
+        },
+        {
+          "code": "DXCF017-5",
+          "name": "Огненный камень",
+          "article": "DXCF017-5",
+          "url": ""
+        },
+        {
+          "code": "DXC017-3",
+          "name": "Серый бархат",
+          "article": "DXC017-3",
+          "url": ""
+        },
+        {
+          "code": "DXC010-3",
+          "name": "Серый травертин",
+          "article": "DXC010-3",
+          "url": ""
+        },
+        {
+          "code": "DXA2311-2",
+          "name": "Серый штрих",
+          "article": "DXA2311-2",
+          "url": ""
+        },
+        {
+          "code": "YB-4037D",
+          "name": "Текстурный бетон",
+          "article": "YB-4037D",
+          "url": ""
+        },
+        {
+          "code": "DXC011-3",
+          "name": "Элегантный черный",
+          "article": "DXC011-3",
           "url": ""
         }
       ]
@@ -182,58 +239,69 @@
       "title": "Гибкий мрамор",
       "items": [
         {
-          "code": "KL-8264-1",
-          "label": "KL 8264-1",
+          "code": "KL8231",
+          "name": "Black Marble",
+          "article": "KL8231",
           "url": ""
         },
         {
-          "code": "KL-8264",
-          "label": "KL 8264",
-          "url": ""
-        },
-        {
-          "code": "KL-8288-1",
-          "label": "KL 8288-1",
-          "url": ""
-        },
-        {
-          "code": "KL8088",
-          "label": "KL8088",
+          "code": "KL8264",
+          "name": "Black Statuario",
+          "article": "KL8264",
           "url": ""
         },
         {
           "code": "KL8226-3",
-          "label": "KL8226-3",
-          "url": ""
-        },
-        {
-          "code": "KL8231",
-          "label": "KL8231",
-          "url": ""
-        },
-        {
-          "code": "KL8249",
-          "label": "KL8249",
-          "url": ""
-        },
-        {
-          "code": "KL8266",
-          "label": "KL8266",
+          "name": "Bottichino Fiorito",
+          "article": "KL8226-3",
           "url": ""
         },
         {
           "code": "KL8270",
-          "label": "KL8270",
+          "name": "Calacatta Carrara",
+          "article": "KL8270",
           "url": ""
         },
         {
-          "code": "KL8273",
-          "label": "KL8273",
+          "code": "KL8266",
+          "name": "Calacatta Oro",
+          "article": "KL8266",
+          "url": ""
+        },
+        {
+          "code": "KL8249",
+          "name": "Crema Delicato",
+          "article": "KL8249",
           "url": ""
         },
         {
           "code": "KL8277",
-          "label": "KL8277",
+          "name": "Efest",
+          "article": "KL8277",
+          "url": ""
+        },
+        {
+          "code": "KL8088",
+          "name": "Emperador",
+          "article": "KL8088",
+          "url": ""
+        },
+        {
+          "code": "KL8273",
+          "name": "Onyx",
+          "article": "KL8273",
+          "url": ""
+        },
+        {
+          "code": "KL8264-1",
+          "name": "Statuario Venato",
+          "article": "KL8264-1",
+          "url": ""
+        },
+        {
+          "code": "KL8288-1",
+          "name": "Vitra",
+          "article": "KL8288-1",
           "url": ""
         }
       ]
@@ -243,68 +311,81 @@
       "title": "Mono",
       "items": [
         {
-          "code": "YB-3058C",
-          "label": "YB-3058C",
-          "url": ""
-        },
-        {
-          "code": "YB-4006D",
-          "label": "YB-4006D",
-          "url": ""
-        },
-        {
           "code": "YB-4012D",
-          "label": "YB-4012D",
-          "url": ""
-        },
-        {
-          "code": "YB-4021D",
-          "label": "YB-4021D",
-          "url": ""
-        },
-        {
-          "code": "YDF-028",
-          "label": "YDF-028",
+          "name": "Жемчужный рассвет",
+          "article": "YB-4012D",
           "url": ""
         },
         {
           "code": "Идеальный-серый",
-          "label": "Идеальный серый",
+          "name": "Идеальный серый",
+          "article": "",
+          "url": ""
+        },
+        {
+          "code": "YB-4006D",
+          "name": "Кожа белая",
+          "article": "YB-4006D",
+          "url": ""
+        },
+        {
+          "code": "YB-4021D",
+          "name": "Крем",
+          "article": "YB-4021D",
           "url": ""
         },
         {
           "code": "Облочно-розовый",
-          "label": "Облочно-розовый",
+          "name": "Облочно-розовый",
+          "article": "",
           "url": ""
         },
         {
           "code": "Пряная-гвоздика",
-          "label": "Пряная гвоздика",
+          "name": "Пряная гвоздика",
+          "article": "",
           "url": ""
         },
         {
           "code": "Пыльный-индиго",
-          "label": "Пыльный индиго",
+          "name": "Пыльный индиго",
+          "article": "",
           "url": ""
         },
         {
           "code": "Серебристый-эвкалипт",
-          "label": "Серебристый эвкалипт",
+          "name": "Серебристый эвкалипт",
+          "article": "",
           "url": ""
         },
         {
           "code": "Табачный-хаки",
-          "label": "Табачный хаки",
+          "name": "Табачный хаки",
+          "article": "",
           "url": ""
         },
         {
           "code": "Тенистая-зелень",
-          "label": "Тенистая зелень",
+          "name": "Тенистая зелень",
+          "article": "",
           "url": ""
         },
         {
           "code": "Терракот",
-          "label": "Терракот",
+          "name": "Терракот",
+          "article": "",
+          "url": ""
+        },
+        {
+          "code": "YB-3058C",
+          "name": "Утренний туман",
+          "article": "YB-3058C",
+          "url": ""
+        },
+        {
+          "code": "YDF-028",
+          "name": "Фисташка",
+          "article": "YDF-028",
           "url": ""
         }
       ]
@@ -314,23 +395,27 @@
       "title": "Металл",
       "items": [
         {
-          "code": "YB-2040B",
-          "label": "YB-2040B",
-          "url": ""
-        },
-        {
-          "code": "YB-2046B",
-          "label": "YB-2046B",
-          "url": ""
-        },
-        {
           "code": "YB-2051B",
-          "label": "YB-2051B",
+          "name": "Бронзовый отблеск",
+          "article": "YB-2051B",
           "url": ""
         },
         {
           "code": "YV-2047B",
-          "label": "YV-2047B",
+          "name": "Серебряный шелк",
+          "article": "YV-2047B",
+          "url": ""
+        },
+        {
+          "code": "YB-2046B",
+          "name": "Теплый титан",
+          "article": "YB-2046B",
+          "url": ""
+        },
+        {
+          "code": "YB-2040B",
+          "name": "Холодный хром",
+          "article": "YB-2040B",
           "url": ""
         }
       ]
@@ -340,13 +425,21 @@
       "title": "Ткань",
       "items": [
         {
+          "code": "YB-3025C",
+          "name": "Дымчатый твид",
+          "article": "YB-3025C",
+          "url": ""
+        },
+        {
           "code": "YB-2025B",
-          "label": "YB-2025B",
+          "name": "Кашемировый рассвет",
+          "article": "YB-2025B",
           "url": ""
         },
         {
           "code": "YB-2027B",
-          "label": "YB-2027B",
+          "name": "Льняной холст",
+          "article": "YB-2027B",
           "url": ""
         }
       ]

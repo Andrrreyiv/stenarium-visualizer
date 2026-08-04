@@ -69,6 +69,24 @@ def slug(name):
     return re.sub(r"[^A-Za-z0-9\-_А-Яа-яЁё]", "", s)
 
 
+# Имя файла у клиента: «Название (АРТИКУЛ).png». Артикул есть не у всех: у восьми
+# позиций Mono его нет вовсе, такие расцветки печатаются под заказ.
+ARTICLE_RE = re.compile(r"^(?P<name>.+?)\s*\((?P<art>[^)]*)\)?\s*$")
+
+
+def parse_item(filename):
+    """«Дуб (YB-3031C).png» -> («Дуб», «YB-3031C»). Без скобок артикул пустой."""
+    stem = Path(filename).stem.strip()
+    m = ARTICLE_RE.match(stem)
+    if not m:
+        return stem, ""
+    # Чистим артикул от всего, кроме букв, цифр и дефиса. Так лечатся три огреха
+    # в исходных именах, замеченные при разборе 04.08.2026:
+    #   «Жемчужный рассвет (YB-4012D₽» — закрывающая скобка набрана знаком рубля
+    #   «Беленый дуб (YB -4087D)» и «Black Statuario (KL 8264)» — пробел внутри артикула
+    return m.group("name").strip(), re.sub(r"[^A-Za-z0-9\-]", "", m.group("art"))
+
+
 def download_all():
     RAW.mkdir(parents=True, exist_ok=True)
     jobs = []
@@ -254,13 +272,17 @@ def build_textures():
             continue
         items = []
         for f in sorted(d.glob("*.png")):
-            code = slug(f.name)
+            name, article = parse_item(f.name)
+            # Код позиции держим на артикуле: он не меняется при переименовании файла,
+            # совпадает с прежними кодами и потому не ломает уже разосланные ссылки.
+            # Без артикула другого устойчивого ключа нет, берём имя.
+            code = slug(article) if article else slug(name)
             im = Image.open(f).convert("RGB")
             for side, tag in ((900, "w"), (240, "t")):
                 r = im.resize((side, side), Image.LANCZOS)
                 r.save(TEX / f"{code}-{tag}.webp", "WEBP", quality=82, method=5)
                 r.save(TEX / f"{code}-{tag}.jpg", "JPEG", quality=82, optimize=True)
-            items.append({"code": code, "label": Path(f.name).stem.strip(), "url": ""})
+            items.append({"code": code, "name": name, "article": article, "url": ""})
         catalog["series"].append({"id": sid, "title": title, "items": items})
         print(f"  {title}: {len(items)}")
     return catalog
@@ -278,13 +300,14 @@ def main():
     scene_cfg = {
         "width": SCENE_W,
         "height": SCENE_H,
+        # Доли пишем точными третями, а не через округлённые пиксели: иначе крайние
+        # зоны отличались бы от средней на пиксель, и равенство перестало бы быть равенством.
         "zones": [
             {"id": zid, "title": ZONE_TITLES[zid],
-             "rect": [x0 / SCENE_W, y0 / SCENE_H, (x1 - x0) / SCENE_W, (y1 - y0) / SCENE_H]}
-            for zid, (x0, y0, x1, y1) in ZONES.items()
+             "rect": [i / 3, WALL_TOP / SCENE_H, 1 / 3, (WALL_BOTTOM - WALL_TOP) / SCENE_H]}
+            for i, zid in enumerate(ZONES)
         ],
         "defaults": {z: first for z in ZONES},
-        "tilesAcross": {"wood": 2, "stone": 2, "marble": 2, "mono": 1, "metal": 2, "fabric": 2},
         "disclaimer": "Размер панелей и итоговый вид могут отличаться от реальных.",
     }
     (ROOT / "src" / "config" / "scene.json").write_text(

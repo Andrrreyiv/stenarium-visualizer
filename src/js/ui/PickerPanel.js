@@ -66,10 +66,16 @@ export class PickerPanel {
       img.loading = 'lazy';
       img.decoding = 'async';
       img.src = this.opts.asset(`tex/${it.code}-t.jpg`);
-      img.alt = it.label;
+      img.alt = it.name;
       img.style.setProperty('--i', Math.min(i, WAVE_CAP));
       const cap = el('span', 'viz-cap');
-      cap.textContent = it.label;
+      const nm = el('span', 'viz-name');
+      nm.textContent = it.name;
+      const art = el('span', 'viz-art');
+      // Без артикула позиции в каталоге нет, но напечатать её могут. Так и пишем,
+      // иначе под именем висела бы пустая строка и плитки разъезжались бы по высоте.
+      art.textContent = it.article || 'под заказ';
+      cap.append(nm, art);
       t.append(img, cap);
       this.grid.append(t);
     });
