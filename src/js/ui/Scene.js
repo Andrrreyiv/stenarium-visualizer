@@ -62,10 +62,8 @@ export class Scene {
       const pair = this.tiles[z.id];
       // Тот же артикул второй раз не перекрашиваем: лишний кроссфейд читается как мигание.
       if (pair.code === code) continue;
-      const across = this.scene.tilesAcross[item.series] || 2;
       const next = pair.back;
       next.style.backgroundImage = `url("${this.opts.asset(`tex/${code}-w.jpg`)}")`;
-      next.style.backgroundSize = `${100 / across}% auto`;
       next.classList.add('is-on');
       pair.front.classList.remove('is-on');
       pair.back = pair.front;

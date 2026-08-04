@@ -29,15 +29,17 @@ export async function saveImage(scene, fg, model, opts) {
     const y = ry * H;
     const w = rw * W;
     const h = rh * H;
-    const across = scene.tilesAcross[item.series] || 2;
-    const side = w / across;
+    // Одна панель на зону, лишнее по краю обрезается. Повторять текстуру плиткой
+    // нельзя: на рисунчатых артикулах вроде YB-3038C сетка стыков читалась насквозь,
+    // и вместо образца материала посетитель видел плитку. То же правило в CSS зоны.
+    const scale = Math.max(w / tex.width, h / tex.height);
+    const dw = tex.width * scale;
+    const dh = tex.height * scale;
     ctx.save();
     ctx.beginPath();
     ctx.rect(x, y, w, h);
     ctx.clip();
-    for (let ty = 0; ty < h; ty += side) {
-      for (let tx = 0; tx < w; tx += side) ctx.drawImage(tex, x + tx, y + ty, side, side);
-    }
+    ctx.drawImage(tex, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
     ctx.restore();
   }
 

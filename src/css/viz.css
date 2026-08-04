@@ -45,10 +45,13 @@
 .viz-scene:not([data-active=""]) .viz-zone:not(.is-active) { filter: brightness(.965) saturate(.97); }
 .viz-zone:hover { filter: brightness(1.02); }
 .viz-fill {
+  /* Текстура садится одной панелью на всю зону, лишнее обрезается по краю.
+     Плитки больше нет: клиент сравнивает материалы, а сетка стыков этому мешала. */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: absolute;
   inset: 0;
-  background-position: top left;
-  background-repeat: repeat;
   opacity: 0;
   /* Смена текстуры кроссфейдом: мгновенная подмена читается как сбой, долгая раздражает. */
   transition: opacity var(--t-base) var(--e);
