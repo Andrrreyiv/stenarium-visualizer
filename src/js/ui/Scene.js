@@ -27,7 +27,11 @@ export class Scene {
       // поэтому кроссфейд собран на прозрачности двух одинаковых слоёв.
       const back = el('span', 'viz-fill');
       const front = el('span', 'viz-fill');
-      box.append(back, front);
+      // Метка «плюс». Зона кликабельна, но ничем не помечена, и посетитель не понимает,
+      // куда жать: ровно на это жаловался клиент. Образец — baijaxiang.ru/interior.
+      const hint = el('span', 'viz-plus');
+      hint.setAttribute('aria-hidden', 'true');
+      box.append(back, front, hint);
       root.append(box);
       this.tiles[z.id] = { front, back, code: null };
     }

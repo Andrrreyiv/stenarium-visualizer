@@ -18,6 +18,8 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageFilter
 
+from frame_align import equalize_center_frame
+
 PUBLIC_KEY = "https://disk.yandex.ru/d/RG1uLymsyBig9g"
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "assets" / "_raw"
@@ -28,10 +30,13 @@ TEX = ROOT / "assets" / "tex"
 # канавки молдингов остаются ЗА пределами прямоугольников, поэтому рамки панелей
 # видны поверх текстуры сами собой, без отдельного слоя.
 SCENE_W, SCENE_H = 1672, 941
+# Клиент попросил равные зоны. Рамки на исходном рендере равными не были (внутренние
+# поля 462, 592, 464), поэтому центральный молдинг сдвинут внутрь модулем frame_align,
+# и все три поля стали 462 px. Правая зона обрезана на 2 px до той же ширины.
 ZONES = {
     "left": (30, 82, 492, 725),
-    "center": (528, 82, 1120, 725),
-    "right": (1162, 82, 1626, 725),
+    "center": (593, 82, 1055, 725),
+    "right": (1162, 82, 1624, 725),
 }
 ZONE_TITLES = {"left": "Левая", "center": "Центральная", "right": "Правая"}
 
@@ -97,6 +102,7 @@ def build_scene():
     SCENE.mkdir(parents=True, exist_ok=True)
     src = Image.open(RAW / "IMG_0037.png").convert("RGB")
     assert src.size == (SCENE_W, SCENE_H), f"неожиданный размер рендера: {src.size}"
+    src = equalize_center_frame(src)
     src.save(SCENE / "bg.jpg", "JPEG", quality=88, optimize=True)
 
     arr = np.asarray(src).astype(np.float32)

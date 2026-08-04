@@ -1,12 +1,12 @@
 // Точка входа: грузим конфиги, собираем модель, поднимаем сцену и меню.
-import { validateCatalog, findItem } from './core/CatalogLoader.js?v=20260803b';
-import { SceneModel } from './core/SceneModel.js?v=20260803b';
-import { encodeState, decodeState } from './core/ShareState.js?v=20260803b';
-import { Scene } from './ui/Scene.js?v=20260803b';
-import { PickerPanel } from './ui/PickerPanel.js?v=20260803b';
-import { saveImage } from './ui/SaveImage.js?v=20260803b';
+import { validateCatalog, findItem } from './core/CatalogLoader.js?v=20260804a';
+import { SceneModel } from './core/SceneModel.js?v=20260804a';
+import { encodeState, decodeState } from './core/ShareState.js?v=20260804a';
+import { Scene } from './ui/Scene.js?v=20260804a';
+import { PickerPanel } from './ui/PickerPanel.js?v=20260804a';
+import { saveImage } from './ui/SaveImage.js?v=20260804a';
 
-const V = '20260803b';
+const V = '20260804a';
 const asset = (p) => `assets/${p}?v=${V}`;
 const shell = document.querySelector('.viz');
 
@@ -29,6 +29,15 @@ function track(event, payload) {
     }
     window.parent.postMessage({ type: 'viz', event, payload }, '*');
   } catch { /* аналитика не должна ломать страницу */ }
+}
+
+// Высота страницы уходит наверх сообщением: встроенный iframe своей высоты не знает,
+// а событие resize ВНУТРИ iframe не приходит вовсе. Поэтому следим за самим документом.
+function postSize() {
+  try {
+    const h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    window.parent.postMessage({ type: 'viz-size', height: h }, '*');
+  } catch { /* сообщение наверх не должно ломать страницу */ }
 }
 
 async function boot() {
@@ -91,6 +100,8 @@ async function boot() {
   picker.setZone(model.zones[0]);
   document.getElementById('viz-reset').disabled = model.isDefault();
   reveal();
+  postSize();
+  new ResizeObserver(postSize).observe(document.documentElement);
   track('viz_open', {});
 }
 

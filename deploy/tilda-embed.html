@@ -1,0 +1,46 @@
+<!-- Вставка визуализатора на страницу Тильды.
+     Куда: блок T123 (HTML) на нужной странице.
+     Что делает: показывает виджет в рамке и связывает его с Яндекс.Метрикой сайта.
+
+     Почему через рамку, а не кодом прямо на странице: виджет это набор файлов
+     (модули, конфиги, 63 текстуры), Тильда такие файлы у себя не держит.
+
+     Почему события Метрики идут через мост: счётчик живёт на самой странице Тильды,
+     внутри рамки его нет. Виджет сообщает о действии наверх, мост зовёт ym.
+     Свой счётчик внутри рамки поднимать нельзя: это давало бы лишний просмотр
+     страницы на каждое открытие визуализатора и портило статистику посещаемости.
+
+     Перед вставкой заменить адрес в VIZ_SRC, если виджет переедет с GitHub Pages. -->
+
+<div id="viz-embed" style="max-width:1400px;margin:0 auto">
+  <iframe id="viz-frame"
+          src="https://andrrreyiv.github.io/stenarium-visualizer/"
+          title="Визуализатор стеновых панелей"
+          loading="lazy"
+          style="display:block;width:100%;height:1200px;border:0"
+          scrolling="no"></iframe>
+</div>
+
+<script>
+(function () {
+  var VIZ_SRC = 'https://andrrreyiv.github.io';
+  var METRIKA_ID = 109470426;
+  var frame = document.getElementById('viz-frame');
+
+  window.addEventListener('message', function (e) {
+    // Сообщения принимаем ТОЛЬКО от адреса виджета: на странице живут и чужие скрипты.
+    if (e.origin !== VIZ_SRC) return;
+    var d = e.data;
+    if (!d) return;
+
+    if (d.type === 'viz-size' && d.height > 0) {
+      frame.style.height = d.height + 'px';
+      return;
+    }
+    // Цели Метрики: viz_open, viz_pick, viz_reset, viz_save, viz_to_product.
+    if (d.type === 'viz' && typeof window.ym === 'function') {
+      window.ym(METRIKA_ID, 'reachGoal', d.event, d.payload || {});
+    }
+  });
+})();
+</script>
