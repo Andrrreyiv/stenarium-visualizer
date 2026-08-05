@@ -23,7 +23,7 @@ export async function saveImage(scene, fg, model, opts) {
     const code = model.get(z.id);
     const item = opts.item(code);
     if (!item) continue;
-    const tex = await load(opts.asset(`tex/${code}-w.jpg`));
+    const tex = await load(opts.asset(`tex/${code}-w.${opts.ext}`));
     const [rx, ry, rw, rh] = z.rect;
     const x = rx * W;
     const y = ry * H;

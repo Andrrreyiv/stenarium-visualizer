@@ -65,7 +65,7 @@ export class PickerPanel {
       const img = el('img', 'viz-thumb');
       img.loading = 'lazy';
       img.decoding = 'async';
-      img.src = this.opts.asset(`tex/${it.code}-t.jpg`);
+      img.src = this.opts.asset(`tex/${it.code}-t.${this.opts.ext}`);
       img.alt = it.name;
       img.style.setProperty('--i', Math.min(i, WAVE_CAP));
       const cap = el('span', 'viz-cap');

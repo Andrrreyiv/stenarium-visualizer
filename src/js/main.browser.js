@@ -1,12 +1,12 @@
 // Точка входа: грузим конфиги, собираем модель, поднимаем сцену и меню.
-import { validateCatalog, findItem } from './core/CatalogLoader.js?v=20260804e';
-import { SceneModel } from './core/SceneModel.js?v=20260804e';
-import { encodeState, decodeState } from './core/ShareState.js?v=20260804e';
-import { Scene } from './ui/Scene.js?v=20260804e';
-import { PickerPanel } from './ui/PickerPanel.js?v=20260804e';
-import { saveImage } from './ui/SaveImage.js?v=20260804e';
+import { validateCatalog, findItem } from './core/CatalogLoader.js?v=20260805b';
+import { SceneModel } from './core/SceneModel.js?v=20260805b';
+import { encodeState, decodeState } from './core/ShareState.js?v=20260805b';
+import { Scene } from './ui/Scene.js?v=20260805b';
+import { PickerPanel } from './ui/PickerPanel.js?v=20260805b';
+import { saveImage } from './ui/SaveImage.js?v=20260805b';
 
-const V = '20260804e';
+const V = '20260805b';
 const asset = (p) => `assets/${p}?v=${V}`;
 const shell = document.querySelector('.viz');
 
@@ -19,6 +19,19 @@ async function json(path) {
   const r = await fetch(`${path}?v=${V}`);
   if (!r.ok) throw new Error(`${path}: ${r.status}`);
   return r.json();
+}
+
+// Формат текстур выбираем один раз на старте. webp легче jpeg примерно на треть
+// (замер по настенной текстуре: 78 КБ против 116 КБ), а трафик платит посетитель
+// клиента с телефона. Проверяем поддержку картинкой, а не разбором строки браузера:
+// строка врёт, картинка нет. Не смогли определить — берём jpeg, он есть везде.
+function detectExt() {
+  return new Promise((res) => {
+    const i = new Image();
+    i.onload = () => res(i.width === 1 ? 'webp' : 'jpg');
+    i.onerror = () => res('jpg');
+    i.src = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=';
+  });
 }
 
 // Событие уходит наружу: на боевой странице его подхватит Метрика.
@@ -35,7 +48,9 @@ function track(event, payload) {
 // а событие resize ВНУТРИ iframe не приходит вовсе. Поэтому следим за самим документом.
 function postSize() {
   try {
-    const h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    // Плюс два пикселя: при точном совпадении высоты браузер иногда всё равно
+    // показывает полосу прокрутки из-за дробных значений.
+    const h = Math.ceil(document.documentElement.getBoundingClientRect().height) + 2;
     window.parent.postMessage({ type: 'viz-size', height: h }, '*');
   } catch { /* сообщение наверх не должно ломать страницу */ }
 }
@@ -53,7 +68,7 @@ async function boot() {
   const restored = decodeState(location.hash, model.zones, (c) => !!item(c));
   for (const [z, c] of Object.entries(restored)) model.state[z] = c;
 
-  const opts = { asset, item, zones: scene.zones };
+  const opts = { asset, item, zones: scene.zones, ext: await detectExt() };
   const view = new Scene(document.getElementById('viz-scene'), scene, fg, model, opts);
   const picker = new PickerPanel(document.getElementById('viz-picker'), catalog, model, {
     ...opts,

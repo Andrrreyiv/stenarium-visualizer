@@ -6,13 +6,19 @@
   <title>Визуализатор стеновых панелей — СТЕНАРИУМ</title>
   <!-- Страница-витрина: на боевом сайте виджет живёт внутри блока Тильды,
        поэтому сброс полей тела страницы держим здесь, а не в стилях виджета. -->
-  <style>body { margin: 0; background: #f4f3f1; }</style>
+  <style>
+    body {
+      margin: 0;
+      background: #f6f4f1;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+  </style>
   <!-- Номер счётчика Яндекс.Метрики клиента. Виджет сам счётчик не поднимает:
        при показе через iframe это дало бы лишний просмотр страницы. События
        уходят наверх сообщением, а на странице их принимает мост (deploy/tilda-embed.html).
        Если виджет встроен прямо в страницу, где счётчик уже есть, вызов идёт напрямую. -->
   <script>window.VIZ_METRIKA_ID = 109470426;</script>
-  <link rel="stylesheet" href="src/css/viz.css?v=20260804e" />
+  <link rel="stylesheet" href="src/css/viz.css?v=20260805b" />
 </head>
 <body>
   <div class="viz">
@@ -30,6 +36,6 @@
     <div id="viz-picker" class="viz-picker"></div>
   </div>
 
-  <script type="module" src="src/js/main.browser.js?v=20260804e"></script>
+  <script type="module" src="src/js/main.browser.js?v=20260805b"></script>
 </body>
 </html>

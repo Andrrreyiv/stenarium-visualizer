@@ -63,7 +63,7 @@ export class Scene {
       // Тот же артикул второй раз не перекрашиваем: лишний кроссфейд читается как мигание.
       if (pair.code === code) continue;
       const next = pair.back;
-      next.style.backgroundImage = `url("${this.opts.asset(`tex/${code}-w.jpg`)}")`;
+      next.style.backgroundImage = `url("${this.opts.asset(`tex/${code}-w.${this.opts.ext}`)}")`;
       next.classList.add('is-on');
       pair.front.classList.remove('is-on');
       pair.back = pair.front;
