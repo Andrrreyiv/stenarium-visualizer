@@ -1,12 +1,12 @@
 // Точка входа: грузим конфиги, собираем модель, поднимаем сцену и меню.
-import { validateCatalog, findItem } from './core/CatalogLoader.js?v=20260805b';
-import { SceneModel } from './core/SceneModel.js?v=20260805b';
-import { encodeState, decodeState } from './core/ShareState.js?v=20260805b';
-import { Scene } from './ui/Scene.js?v=20260805b';
-import { PickerPanel } from './ui/PickerPanel.js?v=20260805b';
-import { saveImage } from './ui/SaveImage.js?v=20260805b';
+import { validateCatalog, findItem } from './core/CatalogLoader.js?v=20260805d';
+import { SceneModel } from './core/SceneModel.js?v=20260805d';
+import { encodeState, decodeState } from './core/ShareState.js?v=20260805d';
+import { Scene } from './ui/Scene.js?v=20260805d';
+import { PickerPanel } from './ui/PickerPanel.js?v=20260805d';
+import { saveImage } from './ui/SaveImage.js?v=20260805d';
 
-const V = '20260805b';
+const V = '20260805d';
 const asset = (p) => `assets/${p}?v=${V}`;
 const shell = document.querySelector('.viz');
 

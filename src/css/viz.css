@@ -25,6 +25,9 @@
 .viz *, .viz *::before, .viz *::after { box-sizing: border-box; }
 .viz button, .viz input, .viz select, .viz textarea { font-family: inherit; }
 
+/* Обёртка обрезает кадр. Нужна затем, что на узком экране кадр НАМЕРЕННО шире
+   вьюпорта: иначе стена 16:9 на вертикальном телефоне выглядит узкой полоской. */
+.viz-stage { overflow: hidden; }
 .viz-scene {
   position: relative;
   width: 100%;
@@ -215,6 +218,31 @@
 
 .viz-error { padding: 16px; border: 1px solid #c33; color: #c33; }
 
+@media (min-width: 1000px) {
+  .viz {
+    display: grid;
+    grid-template-columns: minmax(0, 1.75fr) minmax(320px, 1fr);
+    grid-template-areas: "stage picker" "bar picker";
+    gap: 0 28px;
+    align-items: start;
+  }
+  .viz-error { grid-column: 1 / -1; }
+  .viz-stage { grid-area: stage; }
+  .viz-bar { grid-area: bar; }
+  .viz-picker { grid-area: picker; }
+  .viz-zonerow { padding-top: 0; }
+  /* Прокручивается ТОЛЬКО сетка плиток. Строки зон и серий остаются на виду, иначе
+     при листании каталога непонятно, какую стену сейчас меняешь.
+     Предел в пикселях, а не в vh: виджет живёт в рамке, высоту которой сам же и
+     задаёт, и любая единица от вьюпорта закольцевала бы пересчёт. */
+  .viz-grid {
+    max-height: 520px;
+    overflow-y: auto;
+    padding-right: 6px;
+    scrollbar-width: thin;
+  }
+}
+
 /* Появление страницы: сначала кадр, следом полоса действий, следом каталог.
    Порядок читается как «сцена главная, интерфейс обслуживает». Прячем только
    когда скрипт жив: если он не поднялся, класса is-anim нет и всё видно сразу. */
@@ -257,7 +285,7 @@
 /* Пальцем целятся хуже, чем мышью: увеличиваем цели и плитки. */
 @media (pointer: coarse) {
   .viz-btn, .viz-tab { min-height: 44px; }
-  .viz-grid { grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); }
+  .viz-grid { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
   .viz-zone:hover { filter: none; }
   .viz-tile:hover { transform: none; }
 }
@@ -267,12 +295,17 @@
 @media (max-width: 640px) {
   .viz { padding: 0 0 24px; }
   .viz-bar, .viz-picker { padding-left: 16px; padding-right: 16px; }
-  .viz-scene {
+  .viz-stage {
     position: sticky;
     top: 0;
     z-index: 2;
     box-shadow: 0 10px 18px -14px rgba(0, 0, 0, .45);
   }
+  /* Кадр шире экрана на пятую часть, лишнее срезано поровну с боков: так стена
+     заметно крупнее, но боковые зоны ещё читаются. Метки стоят в центрах третей,
+     то есть на 17, 50 и 83 процентах ширины, и при срезе по 10 с каждой стороны
+     крайняя метка отходит от края кадра примерно на 33px. */
+  .viz-scene { width: 120%; margin-left: -10%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
