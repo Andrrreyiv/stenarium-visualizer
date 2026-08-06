@@ -262,6 +262,59 @@ def build_scene():
         print(f"  {f}: {(SCENE / f).stat().st_size / 1024:.0f} КБ")
 
 
+def trim_border(im):
+    """Снимает белую кромку неоткадрированной текстуры и возвращает квадрат.
+
+    Клиент (06.08.2026) попросил убрать белые рамки: часть исходников выгружена
+    без кадрирования, вокруг материала осталось поле бумаги. Рамка есть у пяти
+    позиций из 68, шире всего у «Дуб Карамель» — около 100 px.
+
+    Порог «просто светлая линия» здесь не годится: у «Calacatta Carrara» и
+    «Кожа белая» сам материал белый (медиана 236 и 213), и такой порог срезал бы
+    им живую текстуру. Признак рамки не яркость, а РОВНОСТЬ: у поля бумаги
+    медиана от 245 при разбросе не больше 4, у белого мрамора разброс 5..10.
+    Сразу за рамкой идёт мягкий переход в несколько пикселей (следы пересжатия),
+    его снимаем отдельно: он ещё заметно ближе к белому, чем материал. Без
+    ограничителя в 12 px этот шаг съедал бы светлые волокна дерева — замер по
+    «Дуб Карамель» давал 341 px вместо 97.
+    """
+    a = np.asarray(im.convert("RGB")).astype(np.float32).mean(axis=2)
+    h, w = a.shape
+    ref = float(np.median(a[h // 4:3 * h // 4, w // 4:3 * w // 4]))
+    edge = ref + 0.35 * (255.0 - ref)
+
+    def side(get, n_max):
+        flat = 0
+        for i in range(n_max):
+            ln = get(i)
+            if np.median(ln) >= 245 and ln.std() <= 4:
+                flat = i + 1
+            elif i - flat > 2:
+                break
+        if flat == 0:
+            return 0
+        i = flat
+        while i < min(flat + 12, n_max) and np.median(get(i)) >= edge:
+            i += 1
+        return i
+
+    t = side(lambda i: a[i], h // 3)
+    b = side(lambda i: a[h - 1 - i], h // 3)
+    l = side(lambda i: a[:, i], w // 3)
+    r = side(lambda i: a[:, w - 1 - i], w // 3)
+    if not (t or b or l or r):
+        return im, (0, 0, 0, 0)
+
+    im = im.crop((l, t, w - r, h - b))
+    # Кромки срезаются на разную ширину, и квадрат перестаёт быть квадратом.
+    # Дальше кадр всё равно ужимается в квадрат, поэтому неравенство сторон
+    # растянуло бы рисунок. Приводим к квадрату по центру, а не масштабом.
+    cw, ch = im.size
+    s = min(cw, ch)
+    im = im.crop(((cw - s) // 2, (ch - s) // 2, (cw - s) // 2 + s, (ch - s) // 2 + s))
+    return im, (t, b, l, r)
+
+
 def build_textures():
     TEX.mkdir(parents=True, exist_ok=True)
     catalog = {"series": []}
@@ -278,6 +331,9 @@ def build_textures():
             # Без артикула другого устойчивого ключа нет, берём имя.
             code = slug(article) if article else slug(name)
             im = Image.open(f).convert("RGB")
+            im, cut = trim_border(im)
+            if any(cut):
+                print(f"    кромка снята у «{name}»: t/b/l/r={cut} -> {im.size[0]}px")
             for side, tag in ((900, "w"), (240, "t")):
                 r = im.resize((side, side), Image.LANCZOS)
                 r.save(TEX / f"{code}-{tag}.webp", "WEBP", quality=82, method=5)
